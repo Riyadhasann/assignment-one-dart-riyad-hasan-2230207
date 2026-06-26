@@ -18,14 +18,14 @@
 // 1. Mixin Payable:
 //    - Method: double calculateSalary(double baseSalary, double bonus)
 //    - Method: void processPayment(double amount)
+
 mixin Payable {
   double calculateSalary(double baseSalary, double bonus) {
-    // TODO: Calculate total salary (base + bonus)
-    return 0.0;
+    return baseSalary + bonus;
   }
 
   void processPayment(double amount) {
-    // TODO: Process payment and print "Payment processed: <amount>"
+    print("Payment processed: $amount");
   }
 }
 
@@ -33,8 +33,7 @@ mixin Payable {
 //    - Method: String generateReport(String employeeName, String department)
 mixin Reportable {
   String generateReport(String employeeName, String department) {
-    // TODO: Generate and return report string: "Report: Monthly report for <name> in <department> department"
-    return "";
+    return "Report: Monthly report for $employeeName in $department department";
   }
 }
 
@@ -53,7 +52,7 @@ abstract class Employee {
   double getBaseSalary();
 
   void displayInfo() {
-    // TODO: Display employee information
+    print("Employee: $name (ID: $id, Department: $department)");
   }
 }
 
@@ -61,6 +60,7 @@ abstract class Employee {
 //    - Manager extends Employee with Payable and Reportable
 //      - Additional property: int teamSize
 //      - Override required methods
+
 class Manager extends Employee with Payable, Reportable {
   int teamSize;
 
@@ -69,25 +69,26 @@ class Manager extends Employee with Payable, Reportable {
 
   @override
   String getJobTitle() {
-    // TODO: Return manager job title
-    return "";
+    return "Manager";
   }
 
   @override
   double getBaseSalary() {
-    // TODO: Return manager base salary
-    return 0.0;
+    return 8000.0;
   }
 
   @override
   void displayInfo() {
-    // TODO: Override to show manager-specific info as shown in expected output
+    print(
+      "Manager: $name (ID: $id, Department: $department, Team Size: $teamSize)",
+    );
   }
 }
 
 //    - Developer extends Employee with Payable
 //      - Additional property: String programmingLanguage
 //      - Override required methods
+
 class Developer extends Employee with Payable {
   String programmingLanguage;
 
@@ -96,34 +97,51 @@ class Developer extends Employee with Payable {
 
   @override
   String getJobTitle() {
-    // TODO: Return developer job title
-    return "";
+    return "Senior Developer";
   }
 
   @override
   double getBaseSalary() {
-    // TODO: Return developer base salary
-    return 0.0;
+    return 6000.0;
   }
 
   @override
   void displayInfo() {
-    // TODO: Override to show developer-specific info as shown in expected output
+    print(
+      "Developer: $name (ID: $id, Department: $department, Language: $programmingLanguage)",
+    );
   }
 }
 
-void main() {
+
   // 5. Create employees and demonstrate:
-  //    - Salary calculation with bonus
-  //    - Payment processing
-  //    - Report generation (for managers)
-  //    - Display all employee information
 
-  // TODO: Create one Manager and one Developer with the details shown in expected output
+void main() {
 
-  // TODO: Demonstrate salary calculation and payment processing for both
+  Manager manager = Manager("John Smith", "M001", "IT", 5);
 
-  // TODO: Generate and print report for the Manager
+  Developer developer = Developer("Alice Johnson", "D001", "IT", "Dart");
 
-  // TODO: Display information for both employees
+  manager.displayInfo();
+  print("Job Title: ${manager.getJobTitle()}");
+  print("Base Salary: ${manager.getBaseSalary()}");
+
+  double managerSalary = manager.calculateSalary(manager.getBaseSalary(), 1000.0);
+  print("Calculated Salary: $managerSalary");
+  manager.processPayment(managerSalary);
+
+  print(manager.generateReport(manager.name, manager.department));
+
+  print("");
+
+  developer.displayInfo();
+  print("Job Title: ${developer.getJobTitle()}");
+  print("Base Salary: ${developer.getBaseSalary()}");
+
+  double developerSalary =
+      developer.calculateSalary(developer.getBaseSalary(), 500.0);
+  print("Calculated Salary: $developerSalary");
+  developer.processPayment(developerSalary);
+
+  
 }
